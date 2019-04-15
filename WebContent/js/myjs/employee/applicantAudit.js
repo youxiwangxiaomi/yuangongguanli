@@ -140,6 +140,7 @@ ApplicantDetail = Ext.extend(Ext.form.FormPanel, {
 						width : 150
 					},
 					items : [ {
+						id :'empId',
 						fieldLabel : '人员编号',
 						name : 'emp.empId',
 						style : 'background: #dfe8f6;',
@@ -403,9 +404,10 @@ ApplicantDetail = Ext.extend(Ext.form.FormPanel, {
 		}
 	},
 	pass : function() {
+		var empId = Ext.getCmp('empId').getValue();
 		Ext.Ajax.request({
-            url: 'emp_list.action',
-            params: { deptId: 1, start: 0 ,limit: 20 },
+            url: 'emp_applicantPass.action',
+            params: { empId: empId },
             method: 'POST',
             success: function (response, options) {
                 Ext.MessageBox.alert('成功', response.responseText);

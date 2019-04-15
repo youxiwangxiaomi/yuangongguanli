@@ -92,6 +92,16 @@ public class EmpAction extends BaseAction{
 		this.out(json);
 	}
 	/**
+	 * 应聘人员通过
+	 */
+	public void applicantPass(){
+		String json = null;
+		String emp = empService.unique(empId);
+		this.setStart(null);
+		this.setLimit(null);
+		this.out(json);
+	}
+	/**
 	 * 保存员工信息
 	 */
 	public void save(){
