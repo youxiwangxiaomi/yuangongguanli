@@ -112,7 +112,7 @@ EmpDetail = Ext.extend(Ext.form.FormPanel,
 					reader : reader,
 					items : [ {
 						width : 768,
-						html : '<center><h1>员工信息</h1></center><br/>'
+						html : '<center><h1>人员信息</h1></center><br/>'
 					}, {
 						xtype : 'fieldset',
 						title : '个人信息',
@@ -322,6 +322,7 @@ EmpDetail = Ext.extend(Ext.form.FormPanel,
 							text : '关闭',
 							iconCls : 'cancel',
 							handler : function() {
+								alert(Ext.get('emp.empSex'));
 								Ext.getCmp('empDetailWinId').destroy();
 							}
 						} ]

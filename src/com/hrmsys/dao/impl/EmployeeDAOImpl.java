@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.hrmsys.bean.PageBean;
 import com.hrmsys.dao.EmployeeDAO;
+import com.hrmsys.dao.JobDAO;
 import com.hrmsys.model.Department;
 import com.hrmsys.model.Employee;
+import com.hrmsys.model.Job;
 
 
 public class EmployeeDAOImpl extends BaseDAO implements EmployeeDAO{
@@ -25,7 +27,7 @@ public class EmployeeDAOImpl extends BaseDAO implements EmployeeDAO{
 	public PageBean findByHQL(String dept, String condition,
 			String conditionValue, int start, int limit) {
 		log.info("dept="+dept+" condition="+condition+" conditionValue=" + conditionValue);
-		StringBuffer hql = new StringBuffer("FROM Employee e WHERE 1 = 1 ");
+		StringBuffer hql = new StringBuffer("FROM Employee e WHERE 1 = 1 and status is null");
 		//若deptId为0，即是查询所有部门
 		if(dept != null && !"".equals(dept) && Integer.parseInt(dept) != 0){
 			hql.append(" AND e.department.deptId = "+ Integer.parseInt(dept));
@@ -71,6 +73,13 @@ public class EmployeeDAOImpl extends BaseDAO implements EmployeeDAO{
 		if(emps.size() > 0)
 			return emps.get(0);
 		else return null;
+	}
+	
+	@Override
+	public List<Employee> findByJobIdDeptId(int jobId,String deptId) {
+		String hql = "FROM Employee WHERE emp_job = "+jobId+" and dept_id = "+deptId+"";
+		List a = findByHQL(hql);
+		return a;
 	}
 
 	@Override

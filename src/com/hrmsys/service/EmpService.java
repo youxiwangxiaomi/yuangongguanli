@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.hrmsys.bean.EmployeeBean;
 import com.hrmsys.model.Department;
 import com.hrmsys.model.Employee;
@@ -67,6 +69,12 @@ public interface EmpService {
 	 */
 	String delete(String ids, String filePath);
 	/**
+	 * 删除
+	 * @param ids
+	 * @return
+	 */
+	String delete(String[] ids);
+	/**
 	 * 按empId查询
 	 * @param empId
 	 * @return
@@ -77,8 +85,8 @@ public interface EmpService {
 	 * 导员工pdf信息
 	 * @param empId
 	 */
-	void pdfExport(String empId, HttpServletResponse response, String filename, String jasper);
 	List<EmployeeBean> getEmpList(String empId);
+	void pdfExport(String empId, HttpServletResponse response, String filename, String jasper);
 	/**
 	 * 导出Excel
 	 * @param response
@@ -88,4 +96,14 @@ public interface EmpService {
 	void xlsExport(HttpServletResponse response, String filename);
 	
 	String unique(String empId);
+	/**
+	 * 通过应聘
+	 * @param empId
+	 * @return 
+	 */
+	String applicantPass(String empId);
+	
+	Employee getEmployee(String empId);
+	
+	List<Employee> findByJobIdDeptId(int jobId,String deptId);
 }

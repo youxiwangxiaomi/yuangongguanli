@@ -67,7 +67,7 @@ applicantGridPanel = Ext.extend(Ext.grid.GridPanel,{
 			tbar: new Ext.Toolbar({
 				bodyStyle: 'padding-left: 5px;',
 				//depart.js中定义了depart
-				items: ['部门:',new depart("员工"),'&nbsp;&nbsp;&nbsp;条目:',{
+				items: ['&nbsp;&nbsp;&nbsp;条目:',{
 					xtype: 'combo',
 					mode: 'local',//加载本地数据，必须加入
 					store: new Ext.data.SimpleStore({
@@ -107,7 +107,7 @@ applicantGridPanel = Ext.extend(Ext.grid.GridPanel,{
 					id: 'emp_delete',
 					handler: this.empDelFn
 				},{
-					text: '添加',
+					text: '应聘信息录入',
 					iconCls: 'add',
 					id: 'emp_add',
 					tooltip: '添加员工信息',
@@ -157,8 +157,8 @@ applicantGridPanel = Ext.extend(Ext.grid.GridPanel,{
 		gridDel('empInfoapplicant','empId', 'emp_delete.action');
 	},
 	empAddFn: function(){
-		var empUpdateWin = new EmpUpdateWin();
-		empUpdateWin.show();
+		var applicantUpdateWin = new ApplicantUpdateWin();
+		applicantUpdateWin.show();
 	},
 	empUpdateFn: function(){
 		var empUpdateWin = new EmpUpdateWin();

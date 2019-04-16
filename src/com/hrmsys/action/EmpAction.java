@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 
 import com.hrmsys.bean.EmployeeBean;
+import com.hrmsys.dao.EmployeeDAO;
+import com.hrmsys.dao.impl.EmployeeDAOImpl;
 import com.hrmsys.model.Employee;
 import com.hrmsys.model.User;
 import com.hrmsys.service.EmpService;
@@ -91,16 +93,7 @@ public class EmpAction extends BaseAction{
 		this.setLimit(null);
 		this.out(json);
 	}
-	/**
-	 * 应聘人员通过
-	 */
-	public void applicantPass(){
-		String json = null;
-		String emp = empService.unique(empId);
-		this.setStart(null);
-		this.setLimit(null);
-		this.out(json);
-	}
+	
 	/**
 	 * 保存员工信息
 	 */
@@ -149,6 +142,25 @@ public class EmpAction extends BaseAction{
 	public void intoUpdate(){
 		String empJson = empService.listByEmpId(empId);
 		this.out(empJson);
+	}
+	/**
+	 * 应聘人员通过
+	 */
+	public void applicantPass(){
+		String msg = "保存失败";
+		Employee emp = empService.getEmployee(empId);
+		emp.setStatus(null);
+		msg = empService.save(emp);
+		this.out("{success: true, msg: '"+msg+"'}");
+	}
+	/**
+	 * 应聘人员拒绝
+	 */
+	public void applicantRefuse(){
+		String msg = "保存失败";
+		String[] empIds = new String[]{empId};
+		msg = empService.delete(empIds);
+		this.out("{success: true, msg: '"+msg+"'}");
 	}
 	/**
 	 * 详细员工pdf报表预览

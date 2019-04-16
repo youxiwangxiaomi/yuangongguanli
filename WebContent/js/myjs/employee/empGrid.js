@@ -12,7 +12,7 @@ EmpGridWin = Ext.extend(Ext.Window,{
 			width: 550,
 			height: 350,
 			resizable: false, //不能改变窗体大小 
-			title: '员工信息',
+			title: '人员信息',
 			collapsible: true,
 			modal: true,
 			items: [empGridPanel]

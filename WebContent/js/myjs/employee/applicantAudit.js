@@ -109,6 +109,12 @@ ApplicantDetail = Ext.extend(Ext.form.FormPanel, {
 		}, {
 			name : 'emp.faceIdentification',
 			mapping : 'faceIdentification'
+		}, {
+			name : 'emp.status',
+			mapping : 'status'
+		} , {
+			name : 'emp.offerAdvice',
+			mapping : 'offerAdvice'
 		} ])
 		ApplicantDetail.superclass.constructor.call(this, {
 			// var windowWidth = window.screen.availWidth;获取屏幕宽度
@@ -140,6 +146,12 @@ ApplicantDetail = Ext.extend(Ext.form.FormPanel, {
 						width : 150
 					},
 					items : [ {
+						id :'status',
+						fieldLabel : '人员状态',
+						name : 'emp.status',
+						style : 'background: #dfe8f6;',
+						hidden : true
+					},{
 						id :'empId',
 						fieldLabel : '人员编号',
 						name : 'emp.empId',
@@ -159,6 +171,7 @@ ApplicantDetail = Ext.extend(Ext.form.FormPanel, {
 						style : 'background: #dfe8f6;',
 						readOnly : true
 					}, {
+						id :'empSex',
 						fieldLabel : '性别',
 						xtype : 'textfield',
 						name : 'emp.empSex',
@@ -368,7 +381,7 @@ ApplicantDetail = Ext.extend(Ext.form.FormPanel, {
 					xtype : 'textarea',
 					width : 415,
 					height : 50,
-					name : 'salary.salRemark'
+					name : 'emp.offerAdvice'
 
 				}, ]
 			}, {
@@ -382,7 +395,7 @@ ApplicantDetail = Ext.extend(Ext.form.FormPanel, {
 				}, {
 					id : 'pass',
 					hidden : true,
-					text : '通过',
+					text : '录用',
 					handler : this.pass
 				}, {
 					id : 'refuse',
@@ -409,25 +422,46 @@ ApplicantDetail = Ext.extend(Ext.form.FormPanel, {
             url: 'emp_applicantPass.action',
             params: { empId: empId },
             method: 'POST',
-            success: function (response, options) {
-                Ext.MessageBox.alert('成功', response.responseText);
-            },
-            failure: function (response, options) {
-                Ext.MessageBox.alert('失败', '请求超时或网络故障，错误编号：' + response.status);
-            }
+            success: function(response, options){
+				var datas = Ext.util.JSON.decode(response.responseText);
+				Ext.Msg.alert("提示", datas.msg, function(){
+					Ext.getCmp('applicantDetailWinId').destroy();
+					Ext.getCmp("empInfoapplicant").getStore().load({
+						params: {
+							deptId: "",
+							start: 0,
+							limit: 20
+						}
+					});
+				})
+				
+			},
+			failure: function(response, options){
+				Ext.Msg.alert("提示", '连接失败', function(){})
+			},
         });	
 	},
 	refuse : function() {
+		var empId = Ext.getCmp('empId').getValue();
 		Ext.Ajax.request({
-            url: 'emp_list.action',
-            params: { deptId: 1, start: 0 ,limit: 20 },
+            url: 'emp_applicantRefuse.action',
+            params: { empId: empId },
             method: 'POST',
-            success: function (response, options) {
-                Ext.MessageBox.alert('成功', response.responseText);
-            },
-            failure: function (response, options) {
-                Ext.MessageBox.alert('失败', '请求超时或网络故障，错误编号：' + response.status);
-            }
-        });
+            success: function(response, options){
+				var datas = Ext.util.JSON.decode(response.responseText);
+				Ext.Msg.alert("提示", datas.msg, function(){
+					Ext.getCmp('applicantDetailWinId').destroy();
+					Ext.getCmp("empInfoapplicant").getStore().load({
+						params: {
+							deptId: "",
+							start: 0,
+							limit: 20
+						}
+					});
+				})
+				
+			},
+			failure: saveFailure,
+        });	
 	}
 });

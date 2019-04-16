@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -179,7 +181,19 @@ public class EmpServiceImpl implements EmpService {
 			}
 		}
 		
-		
+		List emps = findByJobIdDeptId(emp.getJob().getJobId(),emp.getDepartment().getDeptId());
+		String offerAdvice = "该部门该职位暂时没有人，建议：录用";
+		for (Object object : emps) {
+			
+			Employee employee = (Employee)object;
+			
+			if(employee.getStatus() == null){
+				offerAdvice = "该部门该职位已经有人了，建议：拒绝";
+				break;
+			}
+			
+		}
+		jsonObject.put("offerAdvice", offerAdvice);
 		JSONArray jsonArray = new JSONArray();
 		jsonArray.add(jsonObject);
 		System.out.println(JSONArray.fromObject(jsonArray).toString());
@@ -253,6 +267,37 @@ public class EmpServiceImpl implements EmpService {
 		List<EmployeeBean> empBeans = this.packageEmp(emps);
 		FileExport fileExport = new FileExport();
 		fileExport.exportXls(empBeans, filename, response);
+	}
+
+	@Override
+	@Transactional
+	public String applicantPass(String empId) {
+		Employee emp = empDAO.findByEmpId(empId);
+		emp.setStatus("app");
+		empDAO.saveOrUpdate(emp);
+		return StaticValue.SAVE_SUCCESS;
+	}
+
+	@Override
+	public Employee getEmployee(String empId) {
+		Employee emp = empDAO.findByEmpId(empId);
+		return emp;
+	}
+
+	@Override
+	public String delete(String[] ids) {
+		if(empDAO.deleteByEmpId(ids)){
+			return StaticValue.DELETE_SUCCESS;
+		}else{
+			return StaticValue.DELETE_FAILURE;
+		}
+		
+	}
+
+	@Override
+	public List<Employee> findByJobIdDeptId(int jobId, String deptId) {
+		List a = empDAO.findByJobIdDeptId(jobId, deptId);
+		return a;
 	}
 
 }

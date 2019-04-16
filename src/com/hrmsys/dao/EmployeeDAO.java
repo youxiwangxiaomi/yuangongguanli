@@ -66,4 +66,5 @@ public interface EmployeeDAO {
 	 * @param emp
 	 */
 	boolean update(Employee emp);
+	List<Employee> findByJobIdDeptId(int jobId,String deptId);
 }

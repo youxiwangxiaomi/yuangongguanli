@@ -4,8 +4,8 @@
  * @param {Object} width
  * @memberOf {TypeName} 
  */
-addEmpForm = Ext.extend(Ext.form.FormPanel,{
-	id: 'empForm',
+addApplicantForm = Ext.extend(Ext.form.FormPanel,{
+	id: 'applicant',
 	//url: 'emp_save.action',
 	//构造方法中的width参数为TabPanel的宽度
 	constructor: function(width){
@@ -63,15 +63,17 @@ addEmpForm = Ext.extend(Ext.form.FormPanel,{
 			name: 'emp.department.deptId', mapping: 'department.deptId'
 		},{
 			name: 'emp.job.jobId', mapping: 'job.jobId'
+		},{
+			name: 'emp.status', mapping: 'status'
 		}])
-		addEmpForm.superclass.constructor.call(this,{
+		addApplicantForm.superclass.constructor.call(this,{
 			//var windowWidth =   window.screen.availWidth;获取屏幕宽度
 			//bodyStyle: 'margin-left:'+width+'px;', //将下面的panel显示在中间
 			frame: true,
 			reader: reader,
 			items: [{
 				width: 768,
-				html: '<center><h1>人员信息</h1></center><br/>'
+				html: '<center><h1>应聘人员信息</h1></center><br/>'
 			},{
 			xtype: 'fieldset',
 			title: '个人信息',
@@ -94,7 +96,12 @@ addEmpForm = Ext.extend(Ext.form.FormPanel,{
 					width: 150
 				},
 				items: [{
-					fieldLabel: '工号',
+					fieldLabel: '人员状态',
+					name: 'emp.status',
+					id: 'status',
+					hidden:true
+				},{
+					fieldLabel: '人员编号',
 					name: 'emp.empId',
 					allowBlank: false,
 					msgTarget: 'side',
@@ -323,15 +330,29 @@ addEmpForm = Ext.extend(Ext.form.FormPanel,{
 				buttons: [{
 					text: '保存',
 					handler: function(){
-						if(!Ext.getCmp('empForm').getForm().isValid()){
+						if(!Ext.getCmp('applicant').getForm().isValid()){
 		    				return;
 		    			}
-						Ext.getCmp('empForm').getForm().submit({
+						Ext.getCmp('status').setValue("applicant");
+						Ext.getCmp('applicant').getForm().submit({
 							url: 'emp_save.action',
 							method: 'post',
 							waitTitle: '提示',
 							waitMsg: '正在保存数据...',
-							success: saveSuccess,
+							success: function(response, options){
+								var datas = Ext.util.JSON.decode(response.responseText);
+								Ext.Msg.alert("提示", datas.msg, function(){
+									Ext.getCmp('applicant').destroy();
+									Ext.getCmp("empInfoapplicant").getStore().load({
+										params: {
+											deptId: "",
+											start: 0,
+											limit: 20
+										}
+									});
+								})
+								
+							},
 							failure: saveFailure,
 							scope: this,
 							params: {empPhoto: Ext.get('emp_photo').dom.src}
@@ -342,7 +363,7 @@ addEmpForm = Ext.extend(Ext.form.FormPanel,{
 					handler: function(){
 						//Ext.getCmp('empForm').getForm().reset();
 						//Ext.get('emp_photo').dom.src = 'img/default.gif';
-						Ext.getCmp('empUpdateWinId').destroy();
+						Ext.getCmp('applicantUpdateWinId').destroy();
 					}
 				}]
 			}]
@@ -357,11 +378,10 @@ upload = function(){
 //保存成功操作
 saveSuccess = function(form, action){
 	Ext.Msg.confirm('提示', action.result.msg, function(button, text){
-		Ext.getCmp('empForm').getForm().reset();
 		Ext.get('emp_photo').dom.src = 'img/default.gif';
 		if(button == "yes"){
-			Ext.getCmp('empUpdateWinId').destroy();//销毁窗体
-			Ext.getCmp("empInfo").getStore().load({
+			Ext.getCmp('applicantUpdateWinId').destroy();//销毁窗体
+			Ext.getCmp("empInfoapplicant").getStore().load({
 			params: {
 				deptId: "",
 				start: 0,

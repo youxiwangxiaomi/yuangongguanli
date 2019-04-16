@@ -31,7 +31,14 @@ public class EmployeeBean {
 	private String empSchool;
 	private String empEducation;
 	private String empProfession;
+	private String status;
 	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getJob() {
 		return job;
 	}

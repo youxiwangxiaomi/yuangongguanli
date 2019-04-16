@@ -63,6 +63,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<script type="text/javascript" src="js/myjs/employee/empGrid.js"></script>
   		<script type="text/javascript" src="js/myjs/employee/applicant.js"></script>
   		<script type="text/javascript" src="js/myjs/employee/applicantAudit.js"></script>
+  		<script type="text/javascript" src="js/myjs/employee/applicantAdd.js"></script>
+  		<script type="text/javascript" src="js/myjs/employee/applicantUpdateWin.js"></script>
   		<!-- 招聘管理 -->
   		<script type="text/javascript" src="js/myjs/recruitment/recruitmentInfo.js"></script>
   		<script type="text/javascript" src="js/myjs/recruitment/recruitmentAdd.js"></script>

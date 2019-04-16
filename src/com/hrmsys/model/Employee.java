@@ -33,9 +33,30 @@ public class Employee implements java.io.Serializable {
 	private String empNationality;
 	private String empOrigin;
 	private String empNation;
+	@Override
+	public String toString() {
+		return "Employee [job=" + job + ", department=" + department
+				+ ", empId=" + empId + ", empName=" + empName + ", empSex="
+				+ empSex + ", empBirth=" + empBirth + ", empAddress="
+				+ empAddress + ", empPost=" + empPost + ", empTelephone="
+				+ empTelephone + ", empMobilephone=" + empMobilephone
+				+ ", empQq=" + empQq + ", empEmail=" + empEmail
+				+ ", empAccount=" + empAccount + ", empIdcard=" + empIdcard
+				+ ", empPhoto=" + empPhoto + ", empAddDate=" + empAddDate
+				+ ", empAddPerson=" + empAddPerson + ", empBank=" + empBank
+				+ ", empNationality=" + empNationality + ", empOrigin="
+				+ empOrigin + ", empNation=" + empNation + ", empSchool="
+				+ empSchool + ", empEducation=" + empEducation
+				+ ", empProfession=" + empProfession + ", status=" + status
+				+ ", trains=" + trains + ", salaries=" + salaries
+				+ ", jobChanges=" + jobChanges + ", users=" + users
+				+ ", encouragePunishs=" + encouragePunishs + "]";
+	}
+
 	private String empSchool;
 	private String empEducation;
 	private String empProfession;
+	private String status;
 	private Set trains = new HashSet(0);
 	private Set salaries = new HashSet(0);
 	private Set jobChanges = new HashSet(0);
@@ -78,7 +99,7 @@ public class Employee implements java.io.Serializable {
 			String empPhoto, Date empAddDate, String empAddPerson,
 			String empBank, String empNationality,
 			String empOrigin, String empNation, String empSchool,
-			String empEducation, String empProfession, Set trains,
+			String empEducation, String empProfession,String status,Set trains,
 			Set salaries, Set jobChanges, Set users, Set encouragePunishs) {
 		this.job = job;
 		this.empId = empId;
@@ -104,6 +125,7 @@ public class Employee implements java.io.Serializable {
 		this.empSchool = empSchool;
 		this.empEducation = empEducation;
 		this.empProfession = empProfession;
+		this.status = status;
 		this.trains = trains;
 		this.salaries = salaries;
 		this.jobChanges = jobChanges;
@@ -127,6 +149,14 @@ public class Employee implements java.io.Serializable {
 
 	public void setJob(Job job) {
 		this.job = job;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public Department getDepartment() {
