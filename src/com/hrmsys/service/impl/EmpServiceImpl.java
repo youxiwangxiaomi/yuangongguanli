@@ -174,7 +174,7 @@ public class EmpServiceImpl implements EmpService {
 			jsonObject.put("idcardIdentification", "失败，没有身份证号");
 		}else{
 			jsonObject.put("idcardIdentification", "通过");
-			if(emp.getEmpPhoto() == null || emp.getEmpPhoto() == ""){
+			if(emp.getEmpPhoto() == null || emp.getEmpPhoto() == "" || emp.getEmpPhoto().contains("http://localhost:8080/hrmsys/img/default.gif")){
 				jsonObject.put("faceIdentification", "失败，没有上传照片");
 			}else{
 				jsonObject.put("faceIdentification", "通过");

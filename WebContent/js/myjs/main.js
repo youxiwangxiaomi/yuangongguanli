@@ -31,7 +31,7 @@
  				id: 'menu_tree',
  				xtype: 'panel',
  				autoScroll: true,
- 				title: '人力资源管理系统',
+ 				title: '易多德科技综合人力资源管理系统',
  				split: true,
  				collapsible: true,
  				items: [{
@@ -51,7 +51,7 @@
  					}),
  					//每加入进来的节点，若为非叶子节点则做为根节点继续进行查找
  					root: new Ext.tree.AsyncTreeNode({
- 						text: '人力资源管理',
+ 						text: '易多德科技综合人力资源管理系统',
  						expanded :true,
  						id: '1' //加载数据时每次以变量node传入id的值如: node=1
  						//leaf: false //数据库中存储的为1/0
@@ -68,7 +68,7 @@
  				width: '100%',
  				frame: true,
  				height: 30,
- 				html: "<div id='author'>Copyright &copy; 201805 【猿来入此】</div>"
+ 				html: "<div id='author'>Copyright &copy; 201904 【黄子芊】</div>"
  			}]
  		});
  	},

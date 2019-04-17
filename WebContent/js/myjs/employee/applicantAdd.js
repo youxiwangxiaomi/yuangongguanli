@@ -341,16 +341,14 @@ addApplicantForm = Ext.extend(Ext.form.FormPanel,{
 							waitMsg: '正在保存数据...',
 							success: function(response, options){
 								var datas = Ext.util.JSON.decode(response.responseText);
-								Ext.Msg.alert("提示", datas.msg, function(){
-									Ext.getCmp('applicant').destroy();
-									Ext.getCmp("empInfoapplicant").getStore().load({
-										params: {
-											deptId: "",
-											start: 0,
-											limit: 20
-										}
-									});
-								})
+								Ext.getCmp('applicantUpdateWinId').destroy();//销毁窗体
+								Ext.getCmp("empInfoapplicant").getStore().load({
+								params: {
+									deptId: "",
+									start: 0,
+									limit: 20
+								}
+							});
 								
 							},
 							failure: saveFailure,
@@ -380,7 +378,7 @@ saveSuccess = function(form, action){
 	Ext.Msg.confirm('提示', action.result.msg, function(button, text){
 		Ext.get('emp_photo').dom.src = 'img/default.gif';
 		if(button == "yes"){
-			Ext.getCmp('applicantUpdateWinId').destroy();//销毁窗体
+			Ext.getCmp('empUpdateWinId').destroy();//销毁窗体
 			Ext.getCmp("empInfoapplicant").getStore().load({
 			params: {
 				deptId: "",

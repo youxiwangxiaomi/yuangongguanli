@@ -402,7 +402,14 @@ ApplicantDetail = Ext.extend(Ext.form.FormPanel, {
 					hidden : true,
 					text : '拒绝',
 					handler : this.refuse
-				}, ]
+				},{
+					text: '关闭',
+					handler: function(){
+						//Ext.getCmp('empForm').getForm().reset();
+						//Ext.get('emp_photo').dom.src = 'img/default.gif';
+						Ext.getCmp('applicantDetailWinId').destroy();
+					}
+				} ]
 			} ]
 		});
 	},
@@ -413,7 +420,7 @@ ApplicantDetail = Ext.extend(Ext.form.FormPanel, {
 			Ext.getCmp('offerAdvice').show();
 			Ext.getCmp('pass').show();
 			Ext.getCmp('refuse').show();
-			Ext.getCmp('verify').setVisible(false);
+			Ext.getCmp('verify').hide();
 		}
 	},
 	pass : function() {

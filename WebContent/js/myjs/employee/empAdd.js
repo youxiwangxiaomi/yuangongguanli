@@ -63,6 +63,8 @@ addEmpForm = Ext.extend(Ext.form.FormPanel,{
 			name: 'emp.department.deptId', mapping: 'department.deptId'
 		},{
 			name: 'emp.job.jobId', mapping: 'job.jobId'
+		},{
+			name: 'emp.status', mapping: 'status'
 		}])
 		addEmpForm.superclass.constructor.call(this,{
 			//var windowWidth =   window.screen.availWidth;获取屏幕宽度
@@ -94,6 +96,11 @@ addEmpForm = Ext.extend(Ext.form.FormPanel,{
 					width: 150
 				},
 				items: [{
+					fieldLabel: '人员状态',
+					name: 'emp.status',
+					id: 'status',
+					hidden:true
+				},{
 					fieldLabel: '工号',
 					name: 'emp.empId',
 					allowBlank: false,

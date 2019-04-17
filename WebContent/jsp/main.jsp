@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
   	<base href="<%=basePath%>"/>
-    <title>人力资源管理系统</title>
+    <title>易多德科技综合人力资源管理系统</title>
     	<link rel="stylesheet" type="text/css"
 			href="js/extjs/resources/css/ext-all.css"/>
 		<link rel="stylesheet" type="text/css"
